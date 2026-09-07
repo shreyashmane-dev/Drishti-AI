@@ -1,0 +1,35 @@
+{
+  "model_architecture": "efficientnet_b3",
+  "n_folds": 5,
+  "mean_cv_qwk": 0.4176,
+  "std_cv_qwk": 0.3035,
+  "best_overall_qwk": 0.7857,
+  "best_model_path": "D:\\Projects\\DrishtiAI\\artifacts\\models\\drishti_best_model.pth",
+  "folds": [
+    {
+      "fold": 1,
+      "best_val_qwk": 0.7857,
+      "checkpoint": "D:\\Projects\\DrishtiAI\\artifacts\\models\\drishti_efficientnet_b3_fold1.pth"
+    },
+    {
+      "fold": 2,
+      "best_val_qwk": 0.2667,
+      "checkpoint": "D:\\Projects\\DrishtiAI\\artifacts\\models\\drishti_efficientnet_b3_fold2.pth"
+    },
+    {
+      "fold": 3,
+      "best_val_qwk": 0.0,
+      "checkpoint": "D:\\Projects\\DrishtiAI\\artifacts\\models\\drishti_efficientnet_b3_fold3.pth"
+    },
+    {
+      "fold": 4,
+      "best_val_qwk": 0.2857,
+      "checkpoint": "D:\\Projects\\DrishtiAI\\artifacts\\models\\drishti_efficientnet_b3_fold4.pth"
+    },
+    {
+      "fold": 5,
+      "best_val_qwk": 0.75,
+      "checkpoint": "D:\\Projects\\DrishtiAI\\artifacts\\models\\drishti_efficientnet_b3_fold5.pth"
+    }
+  ]
+}

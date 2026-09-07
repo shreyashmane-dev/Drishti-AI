@@ -1,0 +1,88 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Scratch and experiment logs
+scratch/
+*.log
+
+# Training Checkpoints (Track only the primary production model weights)
+artifacts/models/*
+!artifacts/models/drishti_best_model.pth
+!artifacts/models/export_manifest.json
+
+# Real images cohort (Track only sample cases for out-of-the-box demo)
+data/aptos2019/real_images/*
+!data/aptos2019/real_images/002c21358ce6.png
+!data/aptos2019/real_images/0024cdab0c1e.png
+!data/aptos2019/real_images/000c1434d8d7.png
+!data/aptos2019/real_images/0104b032c141.png
+!data/aptos2019/real_images/001639a390f0.png
+
+# Large Archives & Raw dumps
+*.zip
+*.tar.gz
+*.rar
+data/raw/
+data/archive/

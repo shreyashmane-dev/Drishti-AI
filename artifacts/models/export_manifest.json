@@ -1,0 +1,10 @@
+{
+  "production_checkpoint": "D:\\Projects\\DrishtiAI\\artifacts\\models\\drishti_retinopathy_efficientnet_b3.pth",
+  "torchscript_traced": "D:\\Projects\\DrishtiAI\\artifacts\\models\\drishti_retinopathy_efficientnet_b3_traced.pt",
+  "backbone": "efficientnet_b3",
+  "num_classes": 5,
+  "input_resolution": [
+    512,
+    512
+  ]
+}

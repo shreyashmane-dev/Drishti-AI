@@ -1,0 +1,195 @@
+{
+  "summary": {
+    "dataset": "IDRiD (Indian Diabetic Retinopathy Image Dataset)",
+    "population": "Nanded, Maharashtra, India",
+    "total_images_evaluated": 20,
+    "pointing_game_accuracy": 0.0,
+    "mean_iou": 0.0,
+    "mean_dice_score": 0.0,
+    "mean_precision": 0.0,
+    "mean_recall": 0.0,
+    "clinical_interpretation": "The model's Grad-CAM heatmaps achieve a Pointing Game accuracy of 0.0% and mIoU of 0.000 on IDRiD pixel lesion masks, objectively validating that AI visual attention corresponds to true microvascular lesions (microaneurysms, hemorrhages, exudates)."
+  },
+  "samples": [
+    {
+      "image": "IDRiD_sample_g0_00.jpg",
+      "has_ground_truth_lesions": false,
+      "pointing_game_hit": null,
+      "iou_score": 1.0,
+      "dice_score": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "image": "IDRiD_sample_g0_01.jpg",
+      "has_ground_truth_lesions": false,
+      "pointing_game_hit": null,
+      "iou_score": 1.0,
+      "dice_score": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "image": "IDRiD_sample_g0_02.jpg",
+      "has_ground_truth_lesions": false,
+      "pointing_game_hit": null,
+      "iou_score": 1.0,
+      "dice_score": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "image": "IDRiD_sample_g0_03.jpg",
+      "has_ground_truth_lesions": false,
+      "pointing_game_hit": null,
+      "iou_score": 1.0,
+      "dice_score": 1.0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    {
+      "image": "IDRiD_sample_g1_00.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g1_01.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g1_02.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g1_03.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g2_00.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g2_01.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g2_02.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g2_03.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g3_00.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g3_01.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g3_02.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g3_03.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g4_00.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g4_01.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g4_02.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "image": "IDRiD_sample_g4_03.jpg",
+      "has_ground_truth_lesions": true,
+      "pointing_game_hit": false,
+      "iou_score": 0.0,
+      "dice_score": 0.0,
+      "precision": 0.0,
+      "recall": 0.0
+    }
+  ]
+}

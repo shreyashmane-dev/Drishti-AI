@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DrishtiAI — Next-Gen Retinal Vision & Clinical Intelligence Studio</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2338bdf8' stroke-width='2.2'><path d='M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z'/><circle cx='12' cy='12' r='3'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="pristine-clinical-theme">
+
+  <!-- Interactive Background Canvas & Ambient Auras -->
+  <canvas id="ambientMeshCanvas" class="ambient-mesh-canvas"></canvas>
+  <div class="glow-orb orb-primary"></div>
+  <div class="glow-orb orb-secondary"></div>
+  <div class="glow-orb orb-tertiary"></div>
+
+  <!-- Top Glass HUD Navigation Bar -->
+  <header class="hud-top-nav">
+    <div class="nav-brand">
+      <div class="brand-avatar-frame">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <span class="brand-pulse-ring"></span>
+      </div>
+      <div class="brand-meta">
+        <div class="brand-title-row">
+          <h1>DRISHTI<span class="gradient-text">.AI</span></h1>
+          <span class="version-badge">VISION v2.4</span>
+        </div>
+        <span class="brand-tagline">Autonomous Retinal Biometrics & Clinical Dialogue Engine</span>
+      </div>
+    </div>
+
+    <!-- Live Telemetry Status Badges -->
+    <div class="hud-telemetry">
+      <div class="hud-chip active">
+        <span class="live-dot green"></span>
+        <span class="chip-text">ConvNeXt-B3 + CBAM</span>
+      </div>
+      <div class="hud-chip">
+        <span class="live-dot cyan"></span>
+        <span class="chip-text">Epistemic MC-Dropout</span>
+      </div>
+      <div class="hud-chip">
+        <span class="live-dot amber"></span>
+        <span class="chip-text">Grad-CAM Spatial Hooks</span>
+      </div>
+    </div>
+
+    <!-- Header Controls -->
+    <div class="nav-actions">
+      <button class="hud-btn-ghost" id="btnNewScan" title="Reset scan & clear workspace">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+          <path d="M21 3v5h-5"/>
+          <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+          <path d="M8 16H3v5"/>
+        </svg>
+        <span>New Scan</span>
+      </button>
+
+      <!-- Neural Brain & Architecture Deck Trigger -->
+      <button class="hud-btn-neural" id="btnOpenNeuralBrain" title="Inspect Deep Neural Network & Brain Architecture">
+        <div class="brain-spark-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-5.04z"/>
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-5.04z"/>
+          </svg>
+        </div>
+        <span>Neural Brain</span>
+        <span class="hud-param-badge">11.58M</span>
+      </button>
+
+      <!-- Direct Model Weights Download -->
+      <a href="/api/download/model" class="hud-btn-download" id="btnDownloadModelNav" title="Download Pretrained Model Weights (44.2 MB .pth)" download="drishti_best_model.pth">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>Weights (.pth)</span>
+      </a>
+
+      <!-- GitHub Link -->
+      <a href="https://github.com/shreyashmane-dev/Drishti-AI" target="_blank" rel="noopener noreferrer" class="hud-btn-github" title="View Project on GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        <span>GitHub</span>
+      </a>
+
+      <!-- Clickable AI Copilot Trigger -->
+      <button class="hud-btn-ai" id="btnOpenChat" title="Open Dr. Drishti AI Assistant">
+        <div class="ai-sparkle-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/>
+          </svg>
+        </div>
+        <span>Dr. Drishti AI</span>
+        <span class="ai-status-pill" id="aiUnreadDot">Ready</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main HUD Application Frame -->
+  <main class="hud-workspace">
+
+    <!-- Top Ribbon: Clinical Case Gallery & Fast Dropzone -->
+    <section class="hud-glass-card gallery-section">
+      <div class="section-headline">
+        <div class="headline-left">
+          <div class="accent-line"></div>
+          <div>
+            <h2>Clinical Case Browser & Scan Ingestion</h2>
+            <p>Select real APTOS 2019 fundus specimens with confirmed ICDR ground-truth or drop an external scan</p>
+          </div>
+        </div>
+        <div class="headline-right">
+          <span class="source-tag">Real Clinical Data • EyePACS & APTOS Standard</span>
+        </div>
+      </div>
+
+      <div class="gallery-layout-grid">
+        
+        <!-- Interactive Drag & Drop Box -->
+        <div class="dropzone-modern" id="dropzone">
+          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/jpg" hidden>
+          <div class="dropzone-glow-wrap">
+            <div class="dropzone-scanner-icon">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <div class="icon-ring"></div>
+            </div>
+            <div class="dropzone-labels">
+              <span class="dropzone-cta"><strong>Upload Retinal Scan</strong></span>
+              <span class="dropzone-sub">Drag & drop or browse high-res fundus (PNG, JPG)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horizontal Interactive Clinical Case Carousel -->
+        <div class="cases-carousel-container">
+          <div class="carousel-title-row">
+            <span class="carousel-caption">Instant Test Specimens:</span>
+            <span class="carousel-subcaption">5 Validated ICDR Diabetic Retinopathy Stages</span>
+          </div>
+          
+          <div class="presets-carousel" id="presetsGrid">
+            <!-- Dynamically populated via API or Fallback -->
+            <button class="case-card" data-sample="sample_g0">
+              <div class="case-thumb-wrap">
+                <img src="/data/aptos2019/real_images/002c21358ce6.png" class="case-thumb" alt="Grade 0">
+                <span class="case-grade-badge g0">Grade 0</span>
+              </div>
+              <div class="case-meta">
+                <h4>No DR (Normal)</h4>
+                <span>Healthy Macula & Vessels</span>
+              </div>
+            </button>
+
+            <button class="case-card" data-sample="sample_g1">
+              <div class="case-thumb-wrap">
+                <img src="/data/aptos2019/real_images/0024cdab0c1e.png" class="case-thumb" alt="Grade 1">
+                <span class="case-grade-badge g1">Grade 1</span>
+              </div>
+              <div class="case-meta">
+                <h4>Mild NPDR</h4>
+                <span>Isolated Microaneurysms</span>
+              </div>
+            </button>
+
+            <button class="case-card" data-sample="sample_g2">
+              <div class="case-thumb-wrap">
+                <img src="/data/aptos2019/real_images/000c1434d8d7.png" class="case-thumb" alt="Grade 2">
+                <span class="case-grade-badge g2">Grade 2</span>
+              </div>
+              <div class="case-meta">
+                <h4>Moderate NPDR</h4>
+                <span>Hemorrhages & Exudates</span>
+              </div>
+            </button>
+
+            <button class="case-card" data-sample="sample_g3">
+              <div class="case-thumb-wrap">
+                <img src="/data/aptos2019/real_images/0104b032c141.png" class="case-thumb" alt="Grade 3">
+                <span class="case-grade-badge g3">Grade 3</span>
+              </div>
+              <div class="case-meta">
+                <h4>Severe NPDR</h4>
+                <span>4-Quadrant Bleedings</span>
+              </div>
+            </button>
+
+            <button class="case-card" data-sample="sample_g4">
+              <div class="case-thumb-wrap">
+                <img src="/data/aptos2019/real_images/001639a390f0.png" class="case-thumb" alt="Grade 4">
+                <span class="case-grade-badge g4">Grade 4</span>
+              </div>
+              <div class="case-meta">
+                <h4>Proliferative DR</h4>
+                <span>Neovascularization Risk</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Main Dual HUD Workspace (Cinema Visualizer & Diagnostic Telemetry) -->
+    <div class="hud-main-grid">
+
+      <!-- LEFT: Cinema Retinal Inspection Stage -->
+      <div class="hud-glass-card visualizer-stage-card" id="visualizerCard">
+        
+        <!-- Visualizer Top Control Bar -->
+        <div class="stage-control-bar">
+          <div class="view-mode-selector">
+            <button class="mode-pill active" id="tabOriginal">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <span>Original Fundus</span>
+            </button>
+
+            <button class="mode-pill" id="tabGradcam">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 2v2"/><path d="M12 20v2"/>
+                <path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/>
+                <path d="M2 12h2"/><path d="M20 12h2"/>
+                <path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+              </svg>
+              <span>Grad-CAM Heatmap</span>
+            </button>
+
+            <button class="mode-pill" id="tabSplit">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="2" x2="12" y2="22"/>
+                <rect width="20" height="20" x="2" y="2" rx="3"/>
+              </svg>
+              <span>Interactive Split Slider</span>
+            </button>
+          </div>
+
+          <!-- Stage Right Utilities -->
+          <div class="stage-telemetry-right">
+            <!-- Heatmap Opacity Glow Slider (Visible in Heatmap mode) -->
+            <div class="opacity-control-wrap" id="opacityControlWrap" style="display:none;">
+              <span class="opacity-label">Heatmap Glow:</span>
+              <input type="range" id="opacitySlider" min="10" max="100" value="85" class="hud-slider" title="Adjust Grad-CAM intensity">
+              <span class="opacity-val" id="opacityValue">85%</span>
+            </div>
+
+            <div class="quality-badge" id="qualityBadge">
+              <span class="badge-dot"></span>
+              <span class="badge-text">Quality: Ready</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cinema Fundus Stage Display Container -->
+        <div class="cinema-stage-container" id="stageContainer">
+          
+          <!-- Retinal Target Frame Overlays -->
+          <div class="hud-crosshair top-left"></div>
+          <div class="hud-crosshair top-right"></div>
+          <div class="hud-crosshair bottom-left"></div>
+          <div class="hud-crosshair bottom-right"></div>
+          <div class="hud-grid-overlay"></div>
+
+          <!-- Visualizer Core Elements -->
+          <div class="visualizer-inner-stage" id="innerStage">
+            
+            <!-- Original Fundus Image -->
+            <img id="fundusImage" class="fundus-img-base" src="" alt="Retinal Fundus Preview" style="display:none;">
+
+            <!-- Grad-CAM Overlay Image -->
+            <img id="fundusHeatmap" class="fundus-img-overlay" src="" alt="Grad-CAM Overlay" style="display:none;">
+
+            <!-- Interactive Split Comparison Slider Divider -->
+            <div class="split-divider-line" id="splitDivider" style="display:none;">
+              <div class="split-handle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="15 18 9 12 15 6"/>
+                  <polyline points="9 18 3 12 9 6" style="display:none;"/>
+                </svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Empty State Interactive Placeholder -->
+            <div class="empty-cinema-placeholder" id="emptyPlaceholder">
+              <div class="pulsing-retina-core">
+                <div class="core-wave ring-1"></div>
+                <div class="core-wave ring-2"></div>
+                <div class="core-wave ring-3"></div>
+                <div class="core-eye-icon">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="1.8">
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </div>
+              </div>
+              <h3>High-Precision Retinal Workspace Active</h3>
+              <p>Select any clinical test specimen from the top carousel or drop an external fundus photo to trigger high-capacity neural network screening & Grad-CAM visual localization.</p>
+              <div class="quick-hints">
+                <span>⚡ 512×512 Standard Preprocessing</span>
+                <span>•</span>
+                <span>Ben Graham Contrast Optimization</span>
+                <span>•</span>
+                <span>Sub-Vessel Lesion Heatmaps</span>
+              </div>
+            </div>
+
+            <!-- Animated Laser Scanner Overlay -->
+            <div class="laser-scanner-overlay" id="loadingOverlay" style="display:none;">
+              <div class="laser-beam"></div>
+              <div class="scanner-grid-box"></div>
+              <div class="scanner-status-card">
+                <div class="radar-pulse"></div>
+                <div class="scanner-msg-group">
+                  <h4>Executing Deep Retinal Biometrics</h4>
+                  <p>Processing ConvNeXt-B3 Feature Extractors & Epistemic Uncertainty...</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Stage Caption Bar -->
+          <div class="stage-footer-bar">
+            <span class="stage-hint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+              Drag split slider or click tabs to explore retinal vascular architecture vs AI model class-activation regions.
+            </span>
+            <div class="split-indicator-pill" id="splitIndicator" style="display:none;">
+              Split Position: <strong id="splitPosText">50%</strong>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Diagnostic Telemetry & Intelligence Deck -->
+      <div class="hud-glass-card metrics-deck-card" id="metricsCard" style="display:none;">
+        
+        <!-- Primary Diagnosis Headline Banner -->
+        <div class="diagnosis-hero-banner" id="primaryBanner">
+          <div class="hero-left">
+            <span class="hero-subcaption">ICDR Clinical Severity Diagnosis</span>
+            <h3 class="hero-title" id="diagnosisTitle">Moderate NPDR</h3>
+            <div class="hero-badges-row">
+              <span class="urgency-tag" id="urgencyPill">Urgent Referral Needed</span>
+              <span class="reliability-tag" id="reliabilityTag">High Certainty</span>
+            </div>
+          </div>
+
+          <!-- Animated SVG Circular Gauge for Certainty -->
+          <div class="circular-gauge-box">
+            <svg class="gauge-svg" width="94" height="94" viewBox="0 0 100 100">
+              <circle class="gauge-track" cx="50" cy="50" r="42"></circle>
+              <circle class="gauge-progress" id="gaugeProgress" cx="50" cy="50" r="42"></circle>
+            </svg>
+            <div class="gauge-inner">
+              <span class="gauge-num" id="confidenceValue">94.2%</span>
+              <span class="gauge-sub">CERTAINTY</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-Tile Medical Telemetry Grid -->
+        <div class="hud-telemetry-grid">
+          <div class="telemetry-tile">
+            <div class="tile-icon-wrap blue">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+            </div>
+            <div class="tile-content">
+              <span class="tile-label">Epistemic Reliability</span>
+              <span class="tile-val" id="reliabilityValue">High Confidence</span>
+            </div>
+          </div>
+
+          <div class="telemetry-tile">
+            <div class="tile-icon-wrap cyan">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>
+            </div>
+            <div class="tile-content">
+              <span class="tile-label">Laplacian Sharpness</span>
+              <span class="tile-val" id="sharpnessValue">148.5</span>
+            </div>
+          </div>
+
+          <div class="telemetry-tile">
+            <div class="tile-icon-wrap amber">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            </div>
+            <div class="tile-content">
+              <span class="tile-label">Mean Illumination</span>
+              <span class="tile-val" id="illuminationValue">112.4</span>
+            </div>
+          </div>
+
+          <div class="telemetry-tile">
+            <div class="tile-icon-wrap emerald">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="tile-content">
+              <span class="tile-label">Action Timeline</span>
+              <span class="tile-val" id="timelineValue">Within 2-4 Weeks</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5-Class Probability Distribution Bars -->
+        <div class="hud-glass-panel distribution-panel">
+          <div class="dist-header-row">
+            <span class="dist-title">5-Class Softmax Probability Spread</span>
+            <span class="dist-badge">Multi-Class Logits</span>
+          </div>
+          <div class="dist-bars-container" id="distBars">
+            <!-- Dynamically rendered -->
+          </div>
+        </div>
+
+        <!-- Quantitative Biomarkers & Morphometry Deck -->
+        <div class="biomarkers-morphometry-card" id="biomarkersCard">
+          <div class="bio-header">
+            <span class="bio-title">Quantitative Ophthalmic Biomarkers</span>
+            <span class="bio-badge">Multi-Modal Vision Engine</span>
+          </div>
+          <div class="bio-grid">
+            <div class="bio-item">
+              <span class="bio-lbl">Optic Nerve CDR</span>
+              <span class="bio-val" id="bioCdr">0.42</span>
+              <span class="bio-sub" id="bioCdrStatus">Physiological Normal</span>
+            </div>
+            <div class="bio-item">
+              <span class="bio-lbl">Macular CSME Risk</span>
+              <span class="bio-val" id="bioCsme">Low</span>
+              <span class="bio-sub" id="bioCsmeStatus">Fovea Preserved</span>
+            </div>
+            <div class="bio-item">
+              <span class="bio-lbl">Vascular Density</span>
+              <span class="bio-val" id="bioVessel">11.8%</span>
+              <span class="bio-sub" id="bioTortuosity">Caliber: Normal</span>
+            </div>
+            <div class="bio-item">
+              <span class="bio-lbl">1-Yr Progression Risk</span>
+              <span class="bio-val" id="bioProgression">35.7%</span>
+              <span class="bio-sub" id="bioEtdrs">ETDRS Evaluated</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detected Retinal Lesions Checklist Pill Row -->
+        <div class="lesions-checklist-box" id="lesionsBox">
+          <span class="lesions-title">Microvascular Pathology Assessment:</span>
+          <div class="lesions-pills-row" id="lesionsPills">
+            <span class="lesion-pill active">🔬 Microaneurysms Detected</span>
+            <span class="lesion-pill active">🩸 Dot & Blot Hemorrhages</span>
+            <span class="lesion-pill active">🟡 Hard Lipoprotein Exudates</span>
+            <span class="lesion-pill">⚡ Neovascular Tufts (None)</span>
+          </div>
+        </div>
+
+        <!-- AI Dialogue Callout Banner -->
+        <div class="ai-consultation-callout">
+          <div class="callout-left">
+            <div class="ai-orb-glow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/>
+              </svg>
+            </div>
+            <div>
+              <h4>Dr. Drishti Clinical Dialogue Ready</h4>
+              <p>Full natural language synthesis prepared with retinal lesion mapping, doctor recommendations, and HbA1c targets.</p>
+            </div>
+          </div>
+          <button class="hud-btn-primary" id="btnOpenChatBanner">
+            <span>Consult AI Specialist</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Floating Magnetic AI Specialist Button (Bottom-Right) -->
+  <button class="floating-cyber-btn" id="btnFloatingChat" title="Chat with Dr. Drishti AI">
+    <div class="floating-btn-glow"></div>
+    <div class="floating-avatar">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/>
+      </svg>
+    </div>
+    <div class="floating-texts">
+      <span class="floating-main">Ask Drishti AI</span>
+      <span class="floating-sub">Clinical Dialogue Active</span>
+    </div>
+    <div class="floating-pulse-ring"></div>
+  </button>
+
+  <!-- Backdrop for AI Drawer -->
+  <div class="chat-backdrop" id="chatBackdrop"></div>
+
+  <!-- ULTRA-SLEEK SLIDE-OUT AI COPILOT DRAWER -->
+  <aside class="hud-chat-drawer" id="chatDrawer" aria-label="Clinical AI Dialogue Assistant">
+    
+    <!-- Drawer Header -->
+    <div class="drawer-header">
+      <div class="doctor-profile">
+        <div class="doctor-avatar-wrap">
+          <div class="doctor-avatar">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5Z"/>
+              <path d="M20 21a8 8 0 1 0-16 0"/>
+              <path d="M12 11v4"/>
+              <path d="M10 13h4"/>
+            </svg>
+          </div>
+          <span class="status-aura-dot"></span>
+        </div>
+        <div class="doctor-meta-block">
+          <h3>Dr. Drishti AI Specialist</h3>
+          <span class="doctor-specialty">Generative Retinal Dialogue • Multi-Turn Clinical Triage</span>
+        </div>
+      </div>
+
+      <div class="drawer-header-actions">
+        <!-- Text-to-Speech Voice Button -->
+        <button class="hud-icon-btn" id="btnReadSpeech" title="Read report aloud">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+        </button>
+        <button class="hud-icon-btn" id="btnClearChat" title="Clear conversation history">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18"/>
+            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+          </svg>
+        </button>
+        <button class="hud-icon-btn" id="btnExportReport" title="Export / Print Clinical Consultation Report">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+        </button>
+        <button class="hud-icon-btn close-btn" id="btnCloseChat" title="Close AI Assistant">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- AI Clinical Persona Mode Selector -->
+    <div class="chat-persona-bar">
+      <span class="persona-label">Clinical Persona:</span>
+      <div class="persona-chips-group" id="personaGroup">
+        <button class="persona-chip active" data-persona="patient">👤 Patient Care</button>
+        <button class="persona-chip" data-persona="specialist">🩺 Specialist MD</button>
+        <button class="persona-chip" data-persona="researcher">🔬 Neural Lab</button>
+      </div>
+    </div>
+
+    <!-- Active Diagnosis Context Pill -->
+    <div class="chat-context-ribbon" id="chatContextBar" style="display:none;">
+      <span class="context-ribbon-label">Referenced Scan Context:</span>
+      <span class="context-pill-chip" id="contextPill">Moderate NPDR (Grade 2)</span>
+    </div>
+
+    <!-- Message Stream -->
+    <div class="chat-messages-stream" id="chatStream">
+      <div class="chat-bubble ai-bubble">
+        <div class="bubble-avatar">
+          <div class="avatar-mini">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="bubble-body">
+          <div class="bubble-author">Dr. Drishti AI Clinical Copilot</div>
+          <div class="bubble-text">
+            <p>Welcome to the <strong>DrishtiAI Diagnostic Studio</strong>. I am your clinical conversational copilot.</p>
+            <p>Select any retinal fundus case from the top carousel or upload an eye scan. Once evaluated by our multi-scale neural backbone, I will deliver an interactive diagnostic breakdown, detail microvascular anomalies, and help answer your clinical questions.</p>
+          </div>
+          <span class="bubble-timestamp">Just now</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Suggested Quick Prompts Tray -->
+    <div class="chat-quick-prompts" id="promptsTray">
+      <button class="quick-chip" data-prompt="What specific microvascular lesions did the network detect in my retina?">
+        🔬 What lesions were found?
+      </button>
+      <button class="quick-chip" data-prompt="Am I at risk of going blind or losing vision from this stage?">
+        ⚠️ Risk of vision loss?
+      </button>
+      <button class="quick-chip" data-prompt="What are my exact next clinical steps and doctor consultation urgency?">
+        🏥 When to see a specialist?
+      </button>
+      <button class="quick-chip" data-prompt="What diet, HbA1c targets, and lifestyle changes should I follow?">
+        🥗 Diet & blood sugar targets
+      </button>
+    </div>
+
+    <!-- Chat Input Box -->
+    <div class="chat-input-deck">
+      <div class="input-deck-inner">
+        <textarea 
+          id="chatInput" 
+          class="hud-textarea" 
+          placeholder="Ask Dr. Drishti anything about this scan..." 
+          rows="1"
+        ></textarea>
+        <button id="btnSend" class="hud-send-btn" title="Send message (Enter)">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m22 2-7 20-4-9-9-4Z"/>
+            <path d="M22 2 11 13"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- Neural Brain & Deep Network Architecture Modal                            -->
+  <!-- ========================================================================= -->
+  <div id="neuralBrainModal" class="neural-modal-backdrop" aria-hidden="true">
+    <div class="neural-modal-window">
+      <!-- Modal Header -->
+      <div class="neural-modal-header">
+        <div class="modal-title-group">
+          <div class="modal-badge-row">
+            <span class="tech-pill purple">NEURAL LAB</span>
+            <span class="tech-pill cyan">EFFICIENTNET-B3 + CBAM</span>
+            <span class="tech-pill green">11.58M PARAMETERS</span>
+          </div>
+          <h2>Drishti Neural Brain &amp; Deep Architecture Studio</h2>
+          <p class="modal-subtitle">Interactive Cortical Synaptic Simulation &amp; Multi-Scale PyTorch Network Telemetry</p>
+        </div>
+
+        <div class="modal-header-actions">
+          <a href="/api/download/model" class="btn-modal-action download" download="drishti_best_model.pth">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Download Weights (.pth)</span>
+          </a>
+          <a href="https://github.com/shreyashmane-dev/Drishti-AI" target="_blank" rel="noopener noreferrer" class="btn-modal-action github">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <button id="btnCloseNeuralModal" class="btn-modal-close" aria-label="Close modal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="neural-modal-body">
+        
+        <!-- Top Split: Interactive Brain Canvas + Parameter Telemetry -->
+        <div class="neural-top-grid">
+          
+          <!-- Interactive Brain Synaptic Canvas Card -->
+          <div class="neural-canvas-card">
+            <div class="canvas-card-header">
+              <div class="header-left">
+                <span class="live-dot purple"></span>
+                <h3>Real-Time Synaptic &amp; Feedforward Signal Transmission</h3>
+              </div>
+              <div class="canvas-controls">
+                <button id="btnPulseSynapses" class="canvas-ctrl-btn" title="Send feedforward electrical pulse">
+                  ⚡ Pulse Signals
+                </button>
+                <button id="btnToggleAnim" class="canvas-ctrl-btn" title="Pause or resume neural animation">
+                  ⏸ Pause
+                </button>
+              </div>
+            </div>
+
+            <div class="canvas-container">
+              <canvas id="neuralBrainCanvas" class="neural-brain-canvas"></canvas>
+              <div class="canvas-overlay-legend">
+                <span class="legend-item"><span class="dot-sample input"></span> Retinal Plane</span>
+                <span class="legend-item"><span class="dot-sample stem"></span> MBConv Stems</span>
+                <span class="legend-item"><span class="dot-sample cbam"></span> CBAM Attention</span>
+                <span class="legend-item"><span class="dot-sample head"></span> Multi-Task Heads</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Parameter Breakdown & Operational Telemetry -->
+          <div class="neural-telemetry-deck">
+            <h3 class="deck-title">Network Architecture &amp; Parameter Breakdown</h3>
+            
+            <div class="param-stat-banner">
+              <div class="stat-number" id="totalParamCount">11,583,376</div>
+              <div class="stat-caption">Total Trainable Parameters (11.58 Million)</div>
+            </div>
+
+            <div class="param-breakdown-list">
+              <div class="param-row">
+                <div class="param-meta">
+                  <span class="param-name">Backbone Feature Extractor</span>
+                  <span class="param-sub">EfficientNet-B3 (Inverted Residuals 1-7)</span>
+                </div>
+                <div class="param-count">
+                  <strong>10,696,232</strong>
+                  <span class="param-pct">92.3%</span>
+                </div>
+              </div>
+
+              <div class="param-row">
+                <div class="param-meta">
+                  <span class="param-name">Attention Module (Dual CBAM)</span>
+                  <span class="param-sub">Channel Attention + 7x7 Spatial Gate</span>
+                </div>
+                <div class="param-count">
+                  <strong>295,010</strong>
+                  <span class="param-pct">2.5%</span>
+                </div>
+              </div>
+
+              <div class="param-row">
+                <div class="param-meta">
+                  <span class="param-name">Categorical Classifier Head</span>
+                  <span class="param-sub">Dense(1536→256) + LayerNorm + 5-Class Linear</span>
+                </div>
+                <div class="param-count">
+                  <strong>395,269</strong>
+                  <span class="param-pct">3.4%</span>
+                </div>
+              </div>
+
+              <div class="param-row">
+                <div class="param-meta">
+                  <span class="param-name">Continuous Ordinal Regressor</span>
+                  <span class="param-sub">Dense(1536→128) + ReLU + QWK Score</span>
+                </div>
+                <div class="param-count">
+                  <strong>196,865</strong>
+                  <span class="param-pct">1.7%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hardware & Performance Spec Pills -->
+            <div class="hw-spec-grid">
+              <div class="hw-pill">
+                <span class="hw-label">FLOPs</span>
+                <span class="hw-val">1.84 GFLOPs</span>
+              </div>
+              <div class="hw-pill">
+                <span class="hw-label">Latency (GPU)</span>
+                <span class="hw-val">~42 ms</span>
+              </div>
+              <div class="hw-pill">
+                <span class="hw-label">Latency (CPU)</span>
+                <span class="hw-val">~185 ms</span>
+              </div>
+              <div class="hw-pill">
+                <span class="hw-label">Weight Size</span>
+                <span class="hw-val">44.2 MB</span>
+              </div>
+              <div class="hw-pill">
+                <span class="hw-label">Input Shape</span>
+                <span class="hw-val">3×512×512</span>
+              </div>
+              <div class="hw-pill">
+                <span class="hw-label">Saliency Layer</span>
+                <span class="hw-val">features.7</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Pipeline: End-to-End Pipeline Pathway -->
+        <div class="neural-pipeline-section">
+          <h3 class="pipeline-title">7-Stage Deep Clinical Inference Pathway</h3>
+          <div class="pipeline-steps-flow">
+            
+            <div class="pipeline-card">
+              <div class="card-step-num">01</div>
+              <h4>Fundus Ingestion</h4>
+              <p>512×512 RGB retina, green-channel enhancement &amp; ImageNet normalization.</p>
+              <div class="tensor-tag">Tensor: [1, 3, 512, 512]</div>
+            </div>
+
+            <div class="pipeline-card">
+              <div class="card-step-num">02</div>
+              <h4>MBConv Residuals</h4>
+              <p>7 stages of depthwise separable convolutions capturing micro-vessels &amp; exudates.</p>
+              <div class="tensor-tag">Tensor: [1, 1536, 16, 16]</div>
+            </div>
+
+            <div class="pipeline-card">
+              <div class="card-step-num">03</div>
+              <h4>Dual CBAM Attention</h4>
+              <p>Channel pooling + spatial attention prioritize hemorrhages over benign artifacts.</p>
+              <div class="tensor-tag">Tensor: [1, 1536, 16, 16]</div>
+            </div>
+
+            <div class="pipeline-card">
+              <div class="card-step-num">04</div>
+              <h4>Latent Embedding</h4>
+              <p>Adaptive Global Average Pooling collapses 2D spatial features into a unified vector.</p>
+              <div class="tensor-tag">Tensor: [1, 1536]</div>
+            </div>
+
+            <div class="pipeline-card">
+              <div class="card-step-num">05</div>
+              <h4>Multi-Task Heads</h4>
+              <p>Dual parallel forward passes: 5-class ICDR Softmax + continuous ordinal severity.</p>
+              <div class="tensor-tag">Outputs: 5 Probs &amp; QWK</div>
+            </div>
+
+            <div class="pipeline-card">
+              <div class="card-step-num">06</div>
+              <h4>Grad-CAM Backprop</h4>
+              <p>Rectified gradients from class logit to layer <code>features.7</code> generate heatmap.</p>
+              <div class="tensor-tag">Saliency: 512×512 Heatmap</div>
+            </div>
+
+            <div class="pipeline-card">
+              <div class="card-step-num">07</div>
+              <h4>Biomarker Engine</h4>
+              <p>Morphological filters compute Cup-to-Disc Ratio, CSME risk, and vessel density.</p>
+              <div class="tensor-tag">Telemetry: 5 Biomarkers</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
